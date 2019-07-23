@@ -669,8 +669,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Damage.cs" />
+    <Compile Include="Assets\Scripts\EnemyHealth.cs" />
+    <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\LaserDestroyer.cs" />
+    <Compile Include="Assets\Scripts\PathFinder.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\scoller.cs" />
+    <Compile Include="Assets\Scripts\Waves.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\kenney_spaceshooterextension\License.txt" />

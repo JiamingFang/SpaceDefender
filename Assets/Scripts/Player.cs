@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+    [Header("Movement")]
     [SerializeField] int xSpeed = 10;
     [SerializeField] int ySpeed = 10;
     [SerializeField] float padding = 1f;
+    [Header("Laser")]
     [SerializeField] GameObject laser;
     [SerializeField] int laserSpeed = 20;
+    [Header("Health")]
+    [SerializeField] int health = 500;
     float xMin;
     float xMax;
     float yMin;
@@ -32,7 +36,15 @@ public class Player : MonoBehaviour {
         fire();
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        health -= collision.GetComponent<Damage>().getDamage();
+        Destroy(collision.gameObject);
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void fire()
     {
