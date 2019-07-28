@@ -15,10 +15,14 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnAll()
     {
-        for(int i = 0; i < waves.Count; i++)
+        while (true)
         {
-            yield return StartCoroutine(Spawn(waves[i]));
+            for (int i = 0; i < waves.Count; i++)
+            {
+                yield return StartCoroutine(Spawn(waves[i]));
+            }
         }
+        
     }
 
     private IEnumerator Spawn(Waves waveConfig)

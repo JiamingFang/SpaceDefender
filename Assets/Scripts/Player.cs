@@ -13,6 +13,11 @@ public class Player : MonoBehaviour {
     [SerializeField] int laserSpeed = 20;
     [Header("Health")]
     [SerializeField] int health = 500;
+    [Header("Audio")]
+    [SerializeField] AudioClip deathClip;
+    [SerializeField] [Range(0, 1)] float deathVolume = 0.75f;
+    [SerializeField] AudioClip fireClip;
+    [SerializeField] [Range(0, 1)] float fireVolume = 0.75f;
     float xMin;
     float xMax;
     float yMin;
@@ -43,6 +48,9 @@ public class Player : MonoBehaviour {
         if (health <= 0)
         {
             Destroy(gameObject);
+            AudioSource.PlayClipAtPoint(deathClip, Camera.main.transform.position, deathVolume);
+            FindObjectOfType<LoadLevel>().gameOver();
+            
         }
     }
 
@@ -64,6 +72,7 @@ public class Player : MonoBehaviour {
         {
             GameObject laserObject = Instantiate(laser, transform.position, Quaternion.identity) as GameObject;
             laserObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+            AudioSource.PlayClipAtPoint(fireClip, Camera.main.transform.position, fireVolume);
             yield return new WaitForSeconds(0.05f);
         }
     }

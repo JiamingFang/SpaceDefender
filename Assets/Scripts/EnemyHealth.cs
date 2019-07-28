@@ -8,6 +8,11 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float FireFrequency = 2f;
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float laserSpeed = 2f;
+    [SerializeField] GameObject deathExplosion;
+    [SerializeField] AudioClip deathClip;
+    [SerializeField] [Range(0, 1)] float deathVolume = 0.75f;
+    [SerializeField] AudioClip fireClip;
+    [SerializeField] [Range(0, 1)] float fireVolume = 0.75f;
 
     float time = 0f;
 
@@ -30,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
     {
         var laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
         laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -laserSpeed);
+        AudioSource.PlayClipAtPoint(fireClip, Camera.main.transform.position, fireVolume);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -39,7 +45,15 @@ public class EnemyHealth : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
+            
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
+        Destroy(explosion, 1f);
+        AudioSource.PlayClipAtPoint(deathClip, Camera.main.transform.position, deathVolume);
     }
 
 }
